@@ -141,7 +141,7 @@
  \item \ensuremath{n} radio stations
  \item \ensuremath{k} transmission frequencies, \ensuremath{k} \ensuremath{<} \ensuremath{n}
  \item Two stations that are too close together cannot have the same frequency(call this set \ensuremath{E})
- \item DRAW  xii | i elem 1..n, j elem 1..k, 
+ \item DRAW  xij | i elem 1..n, j elem 1..k, 
  
  \end{itemize}
  
@@ -252,7 +252,9 @@
  
  \begin{itemize}
  
- \item  
+ \item  Repeated application of \textbf{unit clause rule} until either a conflict or no more implications possible
+ \item Best visualized(and modeled) with an \textbf{implication graph}
+ \item A \textbf{partial implication graph} is a subgraph which illustrates the BCP at a specific decision level
  
  \end{itemize}
  
@@ -260,23 +262,26 @@
 
 \begin{frame}
 
- \frametitle{SAT Solvers}
+ \frametitle{BCP}
  
  \begin{itemize}
  
- \item  
+ \item  After reaching a \textbf{conflict node} k, the ANALYZE-CONFLICT function chooses a ``smart'' \textbf{conflict clause} to add to the list of formula constraints
  
+ \item Most competitive solvers design ANALYZE-CONFLICT to generate \textbf{asserting clauses} only.
+ \item ANALYZE-CONFLICT also choses the decision level to backtrack to.  According to \textbf{conflict-driven backtracking} strategy, choose the \textbf{second most recent decision level in the conflict clause}
  \end{itemize}
  
 \end{frame}
 
 \begin{frame}
 
- \frametitle{SAT Solvers}
+ \frametitle{BCP}
  
  \begin{itemize}
  
- \item  
+ \item  Is this process guaranteed to terminate?
+ \item  Yes.  It is never the case that the solver enters decision level DL again with the same partial assignment (See node x1 in figures on pg. 33)
  
  \end{itemize}
  
