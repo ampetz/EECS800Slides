@@ -1,0 +1,340 @@
+\documentclass{beamer}
+
+% theme definition
+\usetheme{KU}
+
+\usepackage{natbib}
+\usepackage{alltt}
+%\usepackage{trust}
+\usepackage{fixltx2e}
+\usepackage{amsmath}
+\usepackage{trust-spi}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows, matrix}
+\usepackage[underline=false]{pgf-umlsd}
+\usepackage{graphicx}
+
+\usepackage{listings}
+\lstset{language=Haskell, emph={main, Request, CAResponse, CACertificate, EvidencePackage, Response, Att,TPM_KEY ,TPM_KEY_USAGE
+    , TPM_KEY_FLAGS
+    , TPM_AUTH_DATA_USAGE
+    , TPM_KEY_PARMS
+    , ByteString
+    , TPM_STORE_PUBKEY, OIAP, OSAP, TPM_NONCE, TPM_DIGEST, TPM_QUOTE_INFO, TPM_COMPOSITE_HASH, Binary, Get, TPM_STRUCT_VER, TPM, TPM_KEY_HANDLE, TPM_KEY, Session}, emphstyle=\textbf, deletekeywords={putStrLn, Handle}, showstringspaces=false}
+\lstset{%
+  literate={->}{{ ${\rightarrow}$ }}3 {<-}{{ $\leftarrow$ }}3 
+}
+
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\setbeamercolor{title}{fg=kublue}
+\setbeamercolor{subtitle}{fg=kugray} 
+\setbeamercolor{institute}{fg=kugray}
+\setbeamercolor{frametitle}{fg=kublue}
+\setbeamercolor{frametitle}{bg=white}
+\setbeamercolor{framesubtitle}{fg=kugray}
+\setbeamercolor{framesubtitle}{bg=white}
+\setbeamercolor{item}{fg=black}
+\setbeamercolor{subitem}{fg=kugray}
+\setbeamercolor{itemize/enumerate subbody}{fg=kugray}
+\setbeamercolor{block title}{bg=kublue}
+\setbeamercolor{block title}{fg=white}
+\setbeamercolor{block body}{bg=sand}
+\setbeamercolor{block body}{fg=black}
+
+\setbeamertemplate{footline}[frame number]
+
+\usefonttheme{serif}
+
+\newenvironment{fnverbatim}{\begin{alltt}\scriptsize}{\normalsize\end{alltt}}
+\newcommand{\mean}[1]{\langle#1\rangle}
+\newcommand{\rtime}{\ensuremath{\mathbb{R}^{0\leq}}}
+
+
+%constants
+\def \app {App}
+\def \att {Att}
+\def \ca {CA}
+\def \mea {Meas}
+\def \tp {TPM}
+\def \pmask {PCR\textsubscript{m}}
+\def \pcomp {PCR\textsubscript{c}}
+\def \evd {d}
+\def \eve {e}
+\def \cacert {\sign {\public{AIK}}{CA}}
+\def \exdata {\hash{(\eve, \nonce{\app}, \cacert ) }}
+\def \aikh {AIK_h}
+
+\def \req {R}
+\def \resp {P}
+\def \k {K}
+
+\bibliographystyle{apalike}
+
+\logo{}
+
+\title{ArmoredSoftware: Trust in the cloud}
+\subtitle{Annual Demonstration}
+
+\author{Dr. Perry Alexander\inst{1} \and Dr. Andrew Gill\inst{1} \and Dr. Prasad
+  Kulkarni\inst{1} \and
+  Adam Petz\inst{1} \and Paul Kline\inst{1} \and Justin Dawson\inst{1}
+  \and Jason~Gevargizian\inst{1} 
+  \and Leon Searl\inst{1} \and Edward Komp\inst{1} \and
+  Edward~Bishop\inst{2} \and Ciro Pinto-Coelho\inst{2}} 
+
+\date{{\color{kugray}January 15, 2015}}
+
+% turns off navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+\institute{
+  \inst{1}
+    Information and Telecommunication Technology Center \\
+    Electrical Engineering and Computer Science \\
+    The University of Kansas \\
+    \medskip
+  \inst{2} Southern Cross Engineering}
+
+\begin{document}
+
+\begin{frame}
+ \frametitle {Chapter 2, Adam P. and Josh F.}
+\end{frame}
+
+\logo{\pgfuseimage{jhwk4C_RF}}
+
+
+\begin{frame}
+ \frametitle{Theories}
+  \begin{itemize}
+  \item What is a Theory?
+    \begin{itemize}
+    \item Uses First Order Logic(Variables, Logical symbols, Nonlogical symbols, Syntax) as a generic syntactic framework
+    \item Each theory has its own restriction on Nonlogical symbols
+    \item INTERPRETATION of Nonlogical symbols is also important
+    \item Most of the theories we will see in this book are ``quantifier-free",  and the logical axioms(restrictions on the interpretation of logical symbols) are built-in:  common to all FO theories
+    \end{itemize}
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+
+ \frametitle{Theory 1:  Propositional Logic}
+ 
+ \begin{itemize}
+ 
+ \item Simple syntax:  Or, Not, (), atom
+ \item Three atoms:  Boolean-identifiers, TRUE, FALSE
+ \item Many applications:  database queries, planning problems in AI, automated reasoning, circuit design, etc.
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Motivation}
+ 
+ \begin{itemize}
+ 
+ \item \ensuremath{n} radio stations
+ \item \ensuremath{k} transmission frequencies, \ensuremath{k} \ensuremath{<} \ensuremath{n}
+ \item Two stations that are too close together cannot have the same frequency(call this set \ensuremath{E})
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Motivation}
+ 
+ \begin{itemize}
+ 
+ \item Every station is assigned at least one frequency  
+ \item Every station is assigned not more than one frequency 
+ \item Close stations are not assigned the same frequency  
+
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+  \frametitle{Motivation - Discussion }
+
+  \begin{itemize}
+    \item \textbf{Example} Consider three persons, $A$, $B$, and $C$ who
+      must be seated in a row, with the following constraints: 
+      $A$ won't sit next to $C$, $A$ won't sit it the left chair
+      and $B$ won't sit to the right of $C$.
+
+      Write a propositional formula that is satisfiable $iff$ there
+      is a seat assignment which satisfies all constraints.
+
+
+    \item \textbf{Example 2} Given the following programs, show
+      they are equivalent: 
+
+     $!(a || b) ? h :!(a==b) ? f : g$\\
+     $!(!a || !b) ? g : (!a \&\& !b) ? h : f$\\
+
+  \end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+
+ \frametitle{SAT Solvers}
+ 
+ \begin{itemize}
+ 
+ \item Given a Boolean formula \ensuremath{\beta}, a SAT solver decides whether \ensuremath{\beta} is satisfiable.  If so, reports satisfying assignment
+ 
+ \item REMEMBER:  For this chapter, all inputs are in CNF
+ \item Vast improvement of SAT solvers in recent years:  learn from wrong assignments, prune large search spaces quickly, and focusing on "important" variables first
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{SAT Solvers}
+ 
+ \begin{itemize}
+ 
+  \item  DPLL framework
+ 
+    \begin{itemize}
+ 
+    \item  Traversing and backtracking on a binary tree
+    \item Internal nodes represent partial assignments, leaves represent full assignments
+    \item Complete(terminates AND returns ``Valid'' when input formula is valid)
+ 
+   \end{itemize}
+   
+  \item Stochastic search framework
+  
+    \begin{itemize}
+ 
+    \item  Solver guesses a full assignment
+    \item If the formula is evaluated to FALSE under this assignment, starts to flip values of variables according to some (greedy) heuristic
+    \item Most are incomplete
+ 
+   \end{itemize}
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{DPLL-Definitions}
+ 
+ \begin{itemize}
+ 
+  \item  \textbf{decision-} assign a value to a variable
+ \item  \textbf{decision level-} depth in the binary decision tree in which a decision is made, starting from 1.
+  \item  \textbf{ground level-} decision level 0;  clauses with a single literal
+   \item  \textbf{satisfied clause-} one or more of its literals are satisfied
+   \item  \textbf{conflicting clause-} all of its literals are assigned but not satisfied
+   \item  \textbf{unit clause-} not satisfied and all but one of its literals are assigned
+   \item  \textbf{unresolved clause-} otherwise
+   
+ 
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{DPLL-Definitions}
+ 
+ \begin{itemize}
+ 
+   \item  \textbf{unit clause rule-} Given a partial assignment under which a clause becomes unit, it \textbf{must} be extended so that it satisfies the unassigned literal
+   
+  \item For a given unit clause \ensuremath{C} with an unassigned literal \ensuremath{l}, we say that ``\ensuremath{C} implies \ensuremath{l}'' and that \ensuremath{C} is the antecedent clause of l, denoted by \emph{Antecedent}(\ensuremath{l}).
+ 
+ \item If more than one unit clause implies \ensuremath{l}, we refer to the clause that the \textbf{SAT solver used} in order to imply \ensuremath{l} as its antecedent
+
+ 
+ \item High level diagrams on pg. 30
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{BCP}
+ 
+ \begin{itemize}
+ 
+ \item  Repeated application of \textbf{unit clause rule} until either a conflict or no more implications possible
+ \item Best visualized(and modeled) with an \textbf{implication graph}
+ \item A \textbf{partial implication graph} is a subgraph which illustrates the BCP at a specific decision level
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{BCP}
+ 
+ \begin{itemize}
+ 
+ \item  After reaching a \textbf{conflict node} k, the ANALYZE-CONFLICT function chooses a ``smart'' \textbf{conflict clause} to add to the list of formula constraints
+ 
+ \item Most competitive solvers design ANALYZE-CONFLICT to generate \textbf{asserting clauses} only.
+ \item ANALYZE-CONFLICT also choses the decision level to backtrack to.  According to \textbf{conflict-driven backtracking} strategy, choose the \textbf{second most recent decision level in the conflict clause}
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{BCP}
+ 
+ \begin{itemize}
+ 
+ \item  Is this process guaranteed to terminate?
+ \item  Yes.  It is never the case that the solver enters decision level DL again with the same partial assignment (See node x1 in figures on pg. 33)
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}
+ \frametitle {Chapter 3, Adam P. and Paul K.}
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Theory 2:  Equality Logic(and Uninterpreted Functions)}
+ 
+ \begin{itemize}
+ \item 
+ \item 
+ \item 
+ \end{itemize}
+ 
+\end{frame}
+
+\nocite{Coker::Principles-of-R,Haldar:04:Semantic-Remote,Fabrega:1999aa,Ryan:09:Introduction-to}
+
+\begin{frame}
+  \frametitle{References}
+  \bibliography{demo14}
+  D. Kroening and O. Strichman, Decision Procedures: An Algorithmic Point of View, Springer, 2008. ISBN: 978-3-540-74104-6
+\end{frame}
+
+\end{document}
+
