@@ -294,12 +294,74 @@
 
 \begin{frame}
 
- \frametitle{Theory 2:  Equality Logic(and Uninterpreted Functions)}
+ \frametitle{Theory 2:  Theory of Equality(Equality Logic)}
  
  \begin{itemize}
- \item 
- \item 
- \item 
+ \item Syntax similar to \emph{Propositional Logic} 
+ \item \textbf{BUT} : atoms are equalities between variables(or between variables and constants) over some infinite domain
+
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Propositional VS Equality Logic}
+ 
+ \begin{itemize}
+ \item Both \emph{Equality Logic} and \emph{Propositional Logic} are NP-Complete:  They can model the same decision problems
+ \item Why study both?
+ \begin {itemize}
+ \item Convenience of modeling:  Some problems are more naturally expressed in Equality Logic
+ \item Efficiency:  The high level structure of the input Equality Logic formula can potentially make the decision procedure realize shortcuts(This info may be lost if the problem is modeled directly in Propositional Logic)
+ \end {itemize}
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+
+\begin{frame}
+
+ \frametitle{Uninterpreted Functions}
+ 
+ \begin{itemize}
+ \item \textbf{Uninterpreted Functions}: Function placeholders, used for abstracting, or generalizing, theorems.    
+
+\begin {itemize}
+ \item Essentially, we are ignoring the semantics of the function (except for one general restriction:  \textbf{functional consistency} -see below)
+ \item Different from Interpreted Functions, which have function-specific semantic properties
+ \end{itemize}
+ 
+ \item \textbf{Functional consistency(congruence)}:  Instances of the same function return the same value if given equal arguments.
+ 
+ \item SHOW formal definition??(symbols)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{General Scheme for using Uninterpreted Functions}
+ 
+ \begin{itemize}
+ \item Assume a formula of interest has interpreted functions, and a validity check is too hard(computationally), or even impossible
+
+ \item Assign an uninterpreted function to each interpreted function
+ \item Check the validity of the new formula.  If valid, then interpreted formula is valid(by thm. 3.3)
+
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Aside:  Removing Boolean Variables and Constants}
+ 
+ \begin{itemize}
+ 
+ \item Method to remove Boolean Variables (in short):  replace each variable with an equality between two new variables.
+ \item Method to remove Constants (in short):  replace each constant with a new variable, and add inequality constraints to the new formula such that distinct constants(now variables) cannot equal one another.
+ 
  \end{itemize}
  
 \end{frame}
