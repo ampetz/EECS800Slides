@@ -8,22 +8,14 @@
 %\usepackage{trust}
 \usepackage{fixltx2e}
 \usepackage{amsmath}
-\usepackage{trust-spi}
-\usepackage{tikz}
-\usetikzlibrary{arrows,shadows, matrix}
+%\usepackage{trust-spi}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows,shadows, matrix}
 \usepackage[underline=false]{pgf-umlsd}
 \usepackage{graphicx}
 
-\usepackage{listings}
-\lstset{language=Haskell, emph={main, Request, CAResponse, CACertificate, EvidencePackage, Response, Att,TPM_KEY ,TPM_KEY_USAGE
-    , TPM_KEY_FLAGS
-    , TPM_AUTH_DATA_USAGE
-    , TPM_KEY_PARMS
-    , ByteString
-    , TPM_STORE_PUBKEY, OIAP, OSAP, TPM_NONCE, TPM_DIGEST, TPM_QUOTE_INFO, TPM_COMPOSITE_HASH, Binary, Get, TPM_STRUCT_VER, TPM, TPM_KEY_HANDLE, TPM_KEY, Session}, emphstyle=\textbf, deletekeywords={putStrLn, Handle}, showstringspaces=false}
-\lstset{%
-  literate={->}{{ ${\rightarrow}$ }}3 {<-}{{ $\leftarrow$ }}3 
-}
+%\usepackage{listings}
+
 
 \setbeamertemplate{blocks}[rounded][shadow=true]
 
@@ -51,23 +43,7 @@
 \newcommand{\rtime}{\ensuremath{\mathbb{R}^{0\leq}}}
 
 
-%constants
-\def \app {App}
-\def \att {Att}
-\def \ca {CA}
-\def \mea {Meas}
-\def \tp {TPM}
-\def \pmask {PCR\textsubscript{m}}
-\def \pcomp {PCR\textsubscript{c}}
-\def \evd {d}
-\def \eve {e}
-\def \cacert {\sign {\public{AIK}}{CA}}
-\def \exdata {\hash{(\eve, \nonce{\app}, \cacert ) }}
-\def \aikh {AIK_h}
 
-\def \req {R}
-\def \resp {P}
-\def \k {K}
 
 \bibliographystyle{apalike}
 
