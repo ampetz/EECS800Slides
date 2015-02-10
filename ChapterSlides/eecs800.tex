@@ -329,8 +329,8 @@
  \item \textbf{Uninterpreted Functions}: Function placeholders, used for abstracting, or generalizing, theorems.    
 
 \begin {itemize}
- \item Essentially, we are ignoring the semantics of the function (except for one general restriction:  \textbf{functional consistency} -see below)
- \item Different from Interpreted Functions, which have function-specific semantic properties
+ \item Essentially, we are ignoring the semantics of the function (except for one general behavior:  \textbf{functional consistency})
+ \item Different from Interpreted Functions, which have interpretation-specific semantic properties
  \end{itemize}
  
  \item \textbf{Functional consistency(congruence)}:  Instances of the same function return the same value if given equal arguments.
@@ -361,6 +361,46 @@
  
  \item Method to remove Boolean Variables (in short):  replace each variable with an equality between two new variables.
  \item Method to remove Constants (in short):  replace each constant with a new variable, and add inequality constraints to the new formula such that distinct constants(now variables) cannot equal one another.
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Problems with Interpreted Functions }
+ 
+ \begin{itemize}
+ 
+ \item Large or infinite state spaces(multiplication of 32-bit integers, unbounded memory usage, etc.)
+ \item Complicated semantics of interpreted functions can clutter(and slow down) the reasoning surrounding their use in formulas
+ 
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Problems with \textbf{Un}interpreted functions}
+ 
+ \begin{itemize}
+ 
+ \item Consider:  \ensuremath{x_1 + y_1, x_2 + y_2}
+ \item Assume \ensuremath{x_1 = y_2} and \ensuremath{y_1 = x_2}
+ \item Replace `+' with F
+ \end{itemize}
+ 
+\end{frame}
+
+\begin{frame}
+
+ \frametitle{Partially Interpreted Functions}
+ 
+ \begin{itemize}
+ 
+ \item \textbf{partially interpreted functions} - Adding additional constraints that restore \textbf{some} semantic information about the original(interpreted) function
+ \item \ensuremath{((x_1 = x_2 \land y_1 =y_2)\lor(x_1 =y_2 \land y_1 = x_2)) \Longrightarrow f1 = f2} 
+ \item Multiplication argument of 0 \ensuremath{\Longrightarrow} result is 0
  
  \end{itemize}
  
